@@ -1,6 +1,6 @@
 {
 	"name": "hta-language-support",
-	"displayName": "HTA Language Support",
+	"displayName": "HTA Highlighting Support",
 	"description": "Syntax highlighting for HTML Applications with CSS, JavaScript and VBScript",
 	"version": "1.3.0",
 	"publisher": "walkingsk",
@@ -8,6 +8,10 @@
 		"vscode": "^1.70.0"
 	},
 	"icon": "media/HTA.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/walkingsk/hta-language-support.git"
+	},
 	"contributes": {
 		"languages": [
 			{
