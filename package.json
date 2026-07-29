@@ -1,0 +1,39 @@
+{
+	"name": "hta-language-support",
+	"displayName": "HTA Language Support",
+	"description": "Syntax highlighting for HTML Applications with CSS, JavaScript and VBScript",
+	"version": "1.3.0",
+	"publisher": "walkingsk",
+	"engines": {
+		"vscode": "^1.70.0"
+	},
+	"icon": "media/HTA.png",
+	"contributes": {
+		"languages": [
+			{
+				"id": "hta",
+				"aliases": [
+					"HTA",
+					"HTML Application"
+				],
+				"extensions": [
+					".hta"
+				],
+				"configuration": "./language-configuration.json",
+				"icon": {
+					"dark": "./media/hta_language.png",
+					"light": "./media/hta_language.png"
+				}
+			}
+		],
+		"grammars": [
+			{
+				"language": "hta",
+				"scopeName": "text.html.hta",
+				"path": "./syntaxes/hta.tmLanguage.json"
+			}
+		],
+		
+		"semanticTokenScopes": {}
+	}
+}

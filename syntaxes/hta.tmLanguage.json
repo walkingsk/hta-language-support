@@ -1,0 +1,73 @@
+{
+	"scopeName": "text.html.hta",
+	"foldingStartMarker": "(?i)^\\s*<script\\b|^\\s*<style\\b|^\\s*<!--|^\\s*<textarea\\b|^\\s*<%|\\bregion\\b",
+	"foldingStopMarker": "(?i)^\\s*<\\/script>|^\\s*<\\/style>|^\\s*-->|^\\s*<\\/textarea>|^\\s*%>|\\bendregion\\b",
+	"patterns": [
+		{
+			"begin": "(?i)(<)(textarea)(\\b[^>]*)(>)",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.definition.tag.begin.html.hta"
+				},
+				"2": {
+					"name": "entity.name.tag.html.hta"
+				},
+				"3": {
+					"name": "entity.other.attribute-name.html.hta"
+				},
+				"4": {
+					"name": "punctuation.definition.tag.end.html.hta"
+				}
+			},
+
+			"end": "(?i)(</)(textarea)(>)",
+
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.definition.tag.begin.html.hta"
+				},
+				"2": {
+					"name": "entity.name.tag.html.hta"
+				},
+				"3": {
+					"name": "punctuation.definition.tag.end.html.hta"
+				}
+			},
+
+			"name": "meta.tag.textarea.html.hta",
+
+			"contentName": "text.plain.textarea.hta",
+
+			"patterns": []
+		},
+
+		{
+			"begin": "(?i)<script\\b[^>]*?\\blanguage\\s*=\\s*(?:[\"']VBScript[\"'])[^>]*?>",
+			"beginCaptures": {
+				"0": { "name": "punctuation.definition.tag" }
+			},
+			"end": "(?i)</script>",
+			"patterns": [
+				{
+					"match": "(?i)(\\bREM\\b[^\\n]*)",
+					"captures": {
+						"1": { "name": "comment.line.rem.vbscript" }
+					}
+				},
+				{
+					"match": "(?i)(?:^|\\s)('[^\\n]*)",
+					"captures": {
+						"1": { "name": "comment.line.apostrophe.asp" }
+					}
+				},
+				{
+					"include": "source.asp.vb.net"
+				}
+			]
+		},
+		
+		{
+			"include": "text.html.basic"
+		}
+	]
+}
