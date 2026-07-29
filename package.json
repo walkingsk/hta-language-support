@@ -2,7 +2,7 @@
 	"name": "hta-language-support",
 	"displayName": "HTA Highlighting Support",
 	"description": "Syntax highlighting for HTML Applications with CSS, JavaScript and VBScript",
-	"version": "1.3.0",
+	"version": "1.3.2",
 	"publisher": "walkingsk",
 	"engines": {
 		"vscode": "^1.70.0"
