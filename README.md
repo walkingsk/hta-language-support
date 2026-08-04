@@ -1,7 +1,8 @@
 ## HTML Application (HTA) Language Support
 This extension adds language support for HTA to Visual Studio Code
 
-- CSS Highlight
+- CSS
+- HTML
 - JavaScript
 - VBScript
 
@@ -17,4 +18,4 @@ For instance, `//modelcontextprotocol.io/introduction` is rendered as comment, w
 ```
 Unfortunately I don't have the backgrounds or stamina in the TextMate grammar of VSCode extensions.
 
-Please clone the GitHub repo and make local modifications.
+Please clone the GitHub repo and make local modifications if you need any kind of enhancement.
