@@ -61,6 +61,18 @@
 					}
 				},
 				{
+					"match": "(?i)^\\s*\\b((?:function|sub))\\b\\s*([a-zA-Z_]\\w*)\\s*(\\()([^)]*)(\\))\\s*('[^\\n]*)?",
+					"captures": {
+						"1": { "name": "storage.type.function.asp" },
+						"2": { "name": "entity.name.function.asp" },
+						"3": { "name": "punctuation.definition.parameters.asp" },
+						"4": { "name": "variable.parameter.function.asp" },
+						"5": { "name": "punctuation.definition.parameters.asp" },
+						"6": { "name": "comment.line.apostrophe.asp" }
+					},
+					"name": "meta.function.asp"
+				},
+				{
 					"include": "source.asp.vb.net"
 				}
 			]
