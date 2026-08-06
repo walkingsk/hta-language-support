@@ -1,5 +1,8 @@
 const vscode = require('vscode');
 
+const STRING_LITERAL_TOKEN = 0;
+const semanticTokensLegend = new vscode.SemanticTokensLegend(['stringLiteral']);
+
 function activate(context) {
 	const disposable = vscode.commands.registerCommand('hta.toggleComment', async () => {
 		const editor = vscode.window.activeTextEditor;
@@ -48,6 +51,24 @@ function activate(context) {
 	});
 
 	context.subscriptions.push(disposable);
+
+	const semanticTokensProvider = {
+		provideDocumentSemanticTokens(document) {
+			const builder = new vscode.SemanticTokensBuilder();
+			for (const range of findMisTokenizedStringRanges(document)) {
+				builder.push(range.start.line, range.start.character, range.end.character - range.start.character, STRING_LITERAL_TOKEN);
+			}
+			return builder.build();
+		}
+	};
+
+	context.subscriptions.push(
+		vscode.languages.registerDocumentSemanticTokensProvider(
+			{ language: 'hta' },
+			semanticTokensProvider,
+			semanticTokensLegend
+		)
+	);
 }
 
 function deactivate() {}
@@ -140,6 +161,48 @@ async function toggleBlockComment(editor, range, openToken, closeToken) {
 	const newStart = document.positionAt(startOffset + prefixLength);
 	const newEnd = document.positionAt(startOffset + prefixLength + newText.length);
 	editor.selection = new vscode.Selection(newStart, newEnd);
+}
+
+function findMisTokenizedStringRanges(document) {
+	const ranges = [];
+	const attributePattern = /\bon[a-zA-Z][\w-]*\s*=\s*("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/gi;
+
+	for (let lineIndex = 0; lineIndex < document.lineCount; lineIndex++) {
+		const lineText = document.lineAt(lineIndex).text;
+
+		let attributeMatch;
+		attributePattern.lastIndex = 0;
+		while ((attributeMatch = attributePattern.exec(lineText)) !== null) {
+			const value = attributeMatch[1];
+			const valueStart = attributeMatch.index + attributeMatch[0].length - value.length;
+			const outerQuote = value[0];
+			const innerPattern = outerQuote === '"'
+				? /'(?:[^'\\]|\\.)*'/g
+				: /"(?:[^"\\]|\\.)*"/g;
+
+			let firstStringStart = -1;
+			let hasProblem = false;
+			let innerMatch;
+			innerPattern.lastIndex = 0;
+			while ((innerMatch = innerPattern.exec(value)) !== null) {
+				if (/\/\/|\/\*/.test(innerMatch[0])) {
+					if (firstStringStart === -1) {
+						firstStringStart = innerMatch.index;
+					}
+					hasProblem = true;
+				}
+			}
+
+			if (hasProblem) {
+				ranges.push(new vscode.Range(
+					lineIndex, valueStart + firstStringStart,
+					lineIndex, valueStart + value.length - 1
+				));
+			}
+		}
+	}
+
+	return ranges;
 }
 
 module.exports = { activate, deactivate };

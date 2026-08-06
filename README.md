@@ -11,11 +11,6 @@ This extension is created with the help of AI originally in order to aid me in m
 
 The current version provides preliminary language support. There are potential issues expected.
 
-For instance, `//modelcontextprotocol.io/introduction` is rendered as comment, which is not correct in HTA.
-
-```HTML
-<a onclick="ExplorerURL('https://modelcontextprotocol.io/introduction')">Model Context Protocol (MCP)</a>
-```
 Unfortunately I don't have the backgrounds or stamina in the TextMate grammar of VSCode extensions.
 
 Please clone the GitHub repo and make local modifications if you need any kind of enhancement.
